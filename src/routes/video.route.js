@@ -8,4 +8,8 @@ router.route('/').get(auth(), videoController.getVideos).post(auth(), videoContr
 
 router.route('/:id').delete(auth(), videoController.deleteVideo)
 
+router.route('/like/:id').get(auth(), videoController.likeVideo)
+
+router.route('/dislike/:id').get(auth(), videoController.dislikeVideo)
+
 module.exports = router

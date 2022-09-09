@@ -5,6 +5,9 @@ const videoSchema = mongoose.Schema(
     url: {
       type: String,
     },
+    thumbnail: {
+      type: String,
+    },
     viewCount: {
       type: Number,
       default: 0,
