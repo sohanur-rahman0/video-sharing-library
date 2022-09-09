@@ -4,6 +4,9 @@ module.exports = {
   getVideos: (query) => {
     return Video.find(query)
   },
+  getVideoWithPopulate: (query) => {
+    return Video.findOne(query).populate('uploadedBy').populate('likedBy').populate('dislikedBy')
+  },
   getVideo: (query) => {
     return Video.findOne(query)
   },

@@ -26,11 +26,29 @@
                 window.location.href = result.url
             }
         }
+
+        function ViewDetails() {
+
+            let content = document.getElementById("content")
+
+            if (content.style.display === "none") {
+                content.style.display = "block"
+            } else {
+                content.style.display = "none"
+            }
+        }
+
+
     </script>
     <style>
         iframe {
             width: 100%;
             height: 100%;
+        }
+
+        #content {
+            display: none;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -53,6 +71,30 @@
                     <a href="http://127.0.0.1:3000/video/dislike/<%= it.video._id %>">
                         Dislike
                     </a>
+            </div>
+
+            <div>
+                <button onclick="ViewDetails()"
+                    class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">View
+                    Details</button>
+                <div id="content">
+                    Uploaded By: <%= it.video.uploadedBy.name %>
+                        <br>
+                        People who liked this video:
+                        <br>
+                        <% for (let i=0; i < it.video.likedBy.length; i++) { %>
+                            <%= it.video.likedBy[i].name %>
+                                <br>
+                                <% } %>
+                                    People who disliked this video:
+                                    <br>
+                                    <% for (let i=0; i < it.video.dislikedBy.length; i++) { %>
+                                        <%= it.video.dislikedBy[i].name %>
+                                            <br>
+                                            <% } %>
+
+                </div>
+
             </div>
 
 

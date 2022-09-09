@@ -10,7 +10,7 @@ module.exports = {
     res.render('dashboard', { videos })
   },
   getPlayVideo: async (req, res) => {
-    const video = await videoService.getVideo({ _id: req.params.id })
+    const video = await videoService.getVideoWithPopulate({ _id: req.params.id })
     video.viewCount += 1
     await video.save()
     video.url = video.url.replace('watch?v=', 'embed/')
