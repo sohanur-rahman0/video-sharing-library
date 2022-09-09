@@ -3,6 +3,7 @@ const router = express.Router()
 
 const indexRoute = require('./index.route')
 const authRoute = require('./auth.route')
+const videoRoute = require('./video.route')
 
 const defaultRoutes = [
   {
@@ -12,6 +13,10 @@ const defaultRoutes = [
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/video',
+    route: videoRoute,
   },
 ]
 

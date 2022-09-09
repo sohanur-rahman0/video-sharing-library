@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Students</title>
+    <title>Videos</title>
     <link rel="stylesheet" href="/stylesheets/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="/javascripts/init-alpine.js"></script>
 
     <script>
         async function deleteData(e) {
-            const baseUrl = 'http://localhost:4000'
+            const baseUrl = 'http://localhost:3000'
             const url = baseUrl + e.getAttribute('data-target')
             console.log(url)
             const flag = confirm('Are you sure you want to delete?')
@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <%~ includeFile("../partials/owner/nav.eta") %>
+    <%~ includeFile("/partials/nav.eta") %>
         <main class="h-full pb-16 overflow-y-auto">
             <div class="container grid px-6 mx-auto mt-6">
 
@@ -40,12 +40,12 @@
                     <div class="flex items-center">
 
                         <h2 class="text-2xl font-semibold text-white dark:text-gray-200">
-                            Students
+                            Videos
                         </h2>
                     </div>
                     <button @click="openModal"
                         class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-grey-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                        Add Student
+                        Add Video
                     </button>
                 </div>
 
@@ -62,76 +62,51 @@
                             <thead>
                                 <tr
                                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3">Client</th>
-                                    <th class="px-4 py-3">Rent</th>
-                                    <th class="px-4 py-3">Mobile</th>
-                                    <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3">Emergency</th>
+                                    <th class="px-4 py-3">Video Url</th>
+                                    <th class="px-4 py-3">Views</th>
+                                    <th class="px-4 py-3">Likes</th>
+                                    <th class="px-4 py-3">Dislike</th>
                                     <th class="px-4 py-3">Date</th>
                                     <th class="px-4 py-3">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                <% it.students.forEach((student)=>{ %>
+                                <% it.videos.forEach((video)=>{ %>
 
 
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <td class="px-4 py-3">
                                             <div class="flex items-center text-sm">
                                                 <!-- Avatar with inset shadow -->
-                                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                    <img class="object-cover w-full h-full rounded-full"
-                                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
-                                                        alt="" loading="lazy" />
-                                                    <div class="absolute inset-0 rounded-full shadow-inner"
-                                                        aria-hidden="true">
-                                                    </div>
-                                                </div>
+
                                                 <div>
-                                                    <p class="font-semibold">
-                                                        <%= student.name %>
-                                                    </p>
-                                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                        Student
-                                                    </p>
+                                                    <a class="font-semibold" href="<%= video.url %>">
+                                                        <%= video.url %>
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </td>
+
                                         <td class="px-4 py-3 text-sm">
-                                            <%= student.monthlyRent %>
+                                            <%= video.viewCount %>
                                         </td>
                                         <td class="px-4 py-3 text-sm">
-                                            <%= student.mobile %>
-                                        </td>
-                                        <td class="px-4 py-3 text-xs">
-                                            <span
-                                                class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
-                                                <%= student.paymentStatus %>
-                                            </span>
+                                            <%= video.likedBy.length %>
                                         </td>
                                         <td class="px-4 py-3 text-sm">
-                                            <%= student.emergencyContact %>
+                                            <%= video.dislikedBy.length %>
                                         </td>
+
                                         <td class="px-4 py-3 text-sm">
-                                            <%= new Date(student.createdAt).toLocaleDateString() %>
+                                            <%= new Date(video.createdAt).toLocaleDateString() %>
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center space-x-4 text-sm">
-                                                <a href="/student/<%= student._id %>">
-                                                    <button
-                                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                        aria-label="Edit">
-                                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                                            </path>
-                                                        </svg>
-                                                    </button>
-                                                </a>
+
                                                 <button
                                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                    aria-label="Delete" data-target="/student/<%= student._id %>"
+                                                    aria-label="Delete" data-target="/video/<%= video._id %>"
                                                     onclick="deleteData(this)">
                                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
                                                         viewBox="0 0 20 20">
@@ -264,68 +239,24 @@
                 <div class="mt-4 mb-6">
                     <!-- Modal title -->
                     <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                        Add Student
+                        Add Video
                     </p>
                     <!-- Modal description -->
                     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                        <form action="/student" method="post">
+                        <form action="/video" method="post">
                             <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Name</span>
+                                <span class="text-gray-700 dark:text-gray-400">Url</span>
                                 <input
                                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="Jane Doe" type="text" name="name">
+                                    placeholder="https://www.youtube.com/watch?v=N8M8OOe3SV4" type="text" name="url"
+                                    required>
 
                             </label>
 
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Mobile</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="017********" type="number" name="mobile">
 
-                            </label>
 
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Email</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="example@email.com" type="email" name="email">
 
-                            </label>
-
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">NID</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="12345678910" type="number" name="nid">
-
-                            </label>
-
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Rent</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="100" type="number" name="monthlyRent">
-
-                            </label>
-
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Address</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="Malopara, Rajshahi" type="text" name="address">
-
-                            </label>
-
-                            <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">Emergency Contact</span>
-                                <input
-                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                                    placeholder="017********" type="number" name="emergencyContact">
-
-                            </label>
-
-                            <input type="hidden" name="owner" value="<%= it.user.owner %>">
+                            <input type="hidden" name="uploadedBy" value="<%= it.user._id %>">
 
 
 

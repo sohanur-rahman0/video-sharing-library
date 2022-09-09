@@ -1,12 +1,17 @@
 const { videoService } = require('../services')
 module.exports = {
   getVideos: async (req, res) => {
-    const students = await studentService.getStudents({ owner: req.session.user.owner })
+    const videos = await videoService.getVideos({ uploadedBy: req.session.user._id })
     const user = req.session.user
-    return res.render('owner/student', { students, user })
+    return res.render('video', { videos, user })
   },
   addVideo: async (req, res) => {
-    await studentService.addStudent(req.body)
-    res.redirect('/student')
+    await videoService.addVideo(req.body)
+    res.redirect('/video')
+  },
+
+  deleteVideo: async (req, res) => {
+    await videoService.deleteVideo({ _id: req.params.id })
+    res.redirect('/video')
   },
 }
