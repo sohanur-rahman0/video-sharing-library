@@ -5,6 +5,7 @@ const logger = require('morgan')
 const session = require('express-session')
 const flash = require('connect-flash')
 const eta = require('eta')
+const cors = require('cors')
 const router = require('./routes/index')
 
 const app = express()
@@ -20,6 +21,7 @@ app.use(
     saveUninitialized: true,
   })
 )
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
